@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Dinesh Ambulance Service - Fast and reliable 24/7 ambulance services in Delhi. Book online or call now for emergency transport." />
+  <title>Dinesh Ambulance Service</title>
+  <!-- Preload Google Font -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" /></noscript>
+  <style>
+    /* Variables */
+    :root { --bg: #ffffff; --text: #1f2937; --primary: #dc2626; }
+    .dark { --bg: #111827; --text: #f3f4f6; }
+
+    /* Reset & Base */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-family: 'Inter', sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); min-height: 100vh; position: relative; }
+    a { color: var(--primary); text-decoration: none; }
+    h1, h2, h3, h4, h5, h6 { margin: 0 0 0.5em; }
+    p { margin: 0 0 1em; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute; left: -999px; top: auto;
+      background: #000; color: #fff; padding: 8px;
+      z-index: 1000;
+    }
+    .skip-link:focus { left: 0; }
+
+    /* Header & Nav */
+    .site-header {
+      position: sticky; top: 0; z-index: 9999;
+      background: var(--bg); padding: 12px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .header-top {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 800; font-size: 1.5rem; color: var(--primary);
+    }
+    .controls { display: flex; align-items: center; gap: 12px; }
+    .dark-toggle { font-size: 1.25rem; }
+
+    /* Hamburger */
+    .hamburger {
+      display: flex; flex-direction: column; gap: 5px;
+      width: 32px; height: 24px; background: none;
+    }
+    .hamburger span {
+      flex: 1; background: var(--text); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    /* Desktop nav */
+    .main-nav { display: none; }
+    @media (min-width: 768px) {
+      .hamburger, .mobile-menu { display: none !important; }
+      .main-nav { display: block; }
+      .main-nav ul { display: flex; gap: 24px; list-style: none; margin:0; padding:0; }
+      .main-nav a { padding: 8px 12px; border-radius: 8px; font-weight: 600; }
+      .main-nav a[aria-current="page"] { background: rgba(220,38,38,0.1); }
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; flex-direction: column; background: var(--bg);
+      border-top: 1px solid #ddd; padding: 16px;
+      opacity: 0; transform: translateY(-10px);
+      visibility: hidden; transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    }
+    .mobile-menu.open {
+      display: flex; opacity: 1; transform: translateY(0);
+      visibility: visible;
+    }
+    .mobile-menu ul { list-style: none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; }
+    .mobile-menu a { font-weight:700; }
+
+    /* Focus outline */
+    *:focus-visible {
+      outline: 3px dashed #facc15; outline-offset: 4px;
+    }
+
+    /* Main content */
+    main { padding: 16px; }
+    section { margin-bottom: 64px; }
+
+    /* Gallery & Lightbox */
+    .gallery-list { display: flex; gap:16px; overflow-x:auto; }
+    .gallery-image { width:280px; height:160px; object-fit:cover;
+      cursor: zoom-in; filter: blur(10px); transition: filter 0.4s;
+    }
+    .gallery-image.lazyloaded { filter: blur(0); }
+    .lightbox-overlay {
+      position:fixed; top:0;left:0;right:0;bottom:0;
+      background:rgba(0,0,0,0.85); display:flex;
+      justify-content:center; align-items:center; z-index:10000;
+      opacity:0; visibility:hidden; transition:opacity 0.3s;
+    }
+    .lightbox-overlay.visible { opacity:1; visibility:visible; }
+    .lightbox-overlay img {
+      max-width:90%; max-height:90%; border-radius:12px;
+    }
+    .lightbox-overlay:after {
+      content:"✕"; position:absolute; top:20px; right:30px;
+      color:#fff; font-size:2rem; cursor:pointer;
+    }
+
+    /* Floating buttons */
+    .floating-buttons {
+      position:fixed; bottom:20px; right:20px; display:flex;
+      flex-direction:column; gap:12px; z-index:9999;
+    }
+    .floating-btn {
+      width:56px; height:56px; border-radius:50%; display:flex;
+      align-items:center; justify-content:center; color:#fff;
+      font-size:28px; text-decoration:none; position:relative;
+    }
+    .call-btn {
+      background-color: var(--primary);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(220,38,38,0); }
+      100% { box-shadow: 0 0 0 0 rgba(220,38,38,0); }
+    }
+
+    /* Other FABs */
+    .whatsapp-btn { background-color:#25d366; }
+    .location-btn { background-color:#2563eb; }
+
+    /* Dark mode skews */
+    body.light { background: var(--bg); color: var(--text); }
+    body.dark { background: var(--bg); color: var(--text); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <header class="site-header" role="banner">
+    <div class="header-top">
+      <div class="logo">
+        <span class="material-icons" aria-hidden="true">local_hospital</span>
+        Dinesh Ambulance Service
+      </div>
+      <div class="controls">
+        <button class="dark-toggle" aria-label="Toggle dark mode">🌓</button>
+        <button class="hamburger" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="main-nav" aria-label="Primary navigation">
+      <ul>
+        <li><a href="#hero" aria-current="page">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#booking">Book Ambulance</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation" hidden>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#booking">Book Ambulance</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section id="hero" role="region" aria-label="Emergency ambulance call to action">
+      <h1>Fast &amp; Reliable Ambulance Services 24/7</h1>
+    </section>
+    <section id="services" role="region">
+      <h2>Our Services</h2>
+      <!-- content here -->
+    </section>
+    <section id="booking" role="region">
+      <h2>Book an Ambulance</h2>
+      <form id="booking-form">
+        <label for="pickup-location">Pickup Location</label>
+        <input type="text" id="pickup-location" name="pickup-location" placeholder="Fetching location..." />
+      </form>
+    </section>
+    <section id="gallery" role="region">
+      <h2>Gallery</h2>
+      <div class="gallery-list">
+        <img src="image1.jpg" alt="Ambulance image 1" class="gallery-image lazyload" />
+        <img src="image2.jpg" alt="Ambulance image 2" class="gallery-image lazyload" />
+        <!-- more images -->
+      </div>
+    </section>
+  </main>
+
+  <div class="floating-buttons" aria-label="Quick contact buttons">
+    <a href="tel:+917428901462" class="floating-btn call-btn" aria-label="Call now">
+      <span class="material-icons">call</span>
+    </a>
+    <a href="https://wa.me/917428901462" class="floating-btn whatsapp-btn" aria-label="WhatsApp">
+      <span class="material-icons">chat</span>
+    </a>
+    <button class="floating-btn location-btn" aria-label="Share location">
+      <span class="material-icons">my_location</span>
+    </button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Hamburger toggle
+      const hamburger = document.querySelector('.hamburger');
+      const mobileMenu = document.querySelector('#mobile-menu');
+      hamburger.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        hamburger.classList.toggle('active', open);
+        mobileMenu.hidden = !open;
+        hamburger.setAttribute('aria-expanded', open);
+        hamburger.style.display = open ? 'none' : 'flex';
+      });
+      mobileMenu.addEventListener('transitionend', () => {
+        if (!mobileMenu.classList.contains('open')) hamburger.style.display = 'flex';
+      });
+
+      // Dark mode toggle
+      document.querySelector('.dark-toggle').addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+      });
+
+      // IntersectionObserver for active link
+      const sections = document.querySelectorAll('main section[id], #hero');
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach(link => {
+              link.removeAttribute('aria-current');
+              if (link.getAttribute('href').slice(1) === id) {
+                link.setAttribute('aria-current', 'page');
+              }
+            });
+          }
+        });
+      }, { threshold: 0.4 });
+      sections.forEach(sec => obs.observe(sec));
+
+      // Lightbox
+      const imgs = document.querySelectorAll('.gallery-image');
+      const lightbox = document.createElement('div');
+      lightbox.className = 'lightbox-overlay';
+      document.body.appendChild(lightbox);
+      imgs.forEach(img => {
+        img.addEventListener('click', () => {
+          lightbox.innerHTML = '<img src="'+img.src+'" alt="'+img.alt+'">';
+          lightbox.classList.add('visible');
+        });
+      });
+      lightbox.addEventListener('click', () => lightbox.classList.remove('visible'));
+
+      // Autofill pickup
+      const pickup = document.getElementById('pickup-location');
+      if (navigator.geolocation && pickup) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          pickup.value = `Lat: ${pos.coords.latitude.toFixed(5)}, Lng: ${pos.coords.longitude.toFixed(5)}`;
+        });
+      }
+    });
+  </script>
+</body>
+</html>
